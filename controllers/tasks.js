@@ -11,7 +11,7 @@ const createTask = asyncWrapper(async (req, res) => {
   res.status(201).json({ task });
 });
 
-const getTask = asyncWrapper(async (req, res) => {
+const getTask = asyncWrapper(async (req, res, next) => {
   const { id: taskId } = req.params;
   const task = await Task.findOne({ _id: taskId });
   if (!task) {
@@ -19,7 +19,7 @@ const getTask = asyncWrapper(async (req, res) => {
   }
   res.status(200).json({ task });
 });
-const updateTask = asyncWrapper(async (req, res) => {
+const updateTask = asyncWrapper(async (req, res, next) => {
   const { id: taskId } = req.params;
   const task = await Task.findOneAndUpdate({ _id: taskId }, req.body, {
     new: true,
@@ -30,7 +30,7 @@ const updateTask = asyncWrapper(async (req, res) => {
   }
   res.status(200).json({ task });
 });
-const deleteTask = asyncWrapper(async (req, res) => {
+const deleteTask = asyncWrapper(async (req, res, next) => {
   const { id: taskId } = req.params;
   const task = await Task.findOneAndDelete({ _id: taskId });
   if (!task) {
